@@ -1,4 +1,4 @@
-# Beyond Blog
+# MyBlog
 
 > 基于Spring Boot 的 Java 开源博客
 
