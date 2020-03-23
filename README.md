@@ -26,7 +26,11 @@
 
 项目导入后修改`application-dev.xml`的数据库用户名密码。
 
-启动即可，默认端口8088。
+默认端口8088，启动访问即可。
+
+访问[localhost:8088](localhost:8088)即为前台主页，
+
+访问[localhost:8088/admin](localhost:8088/admin)即为后台主页，账号zjq，密码123456
 
 
 
