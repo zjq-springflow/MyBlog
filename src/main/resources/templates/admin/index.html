@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:replace="admin/commons/fragments::top(~{::title})">
+  <title>后台管理</title>
+</head>
+
+<body>
+<!--导航-->
+<div th:replace="admin/commons/fragments::header(0)"></div>
+
+  <!--中间内容-->
+  <div  class="m-container-small m-padded-tb-big">
+    <div class="ui container">
+      <div class="ui success large  message">
+        <h3>Hi,</h3>
+        <p><span th:text="${session.user.getUsername()}"></span>，欢迎登录！</p>
+      </div>
+      <img src="https://unsplash.it/1000/400?image=1005" alt="" class="ui rounded bordered fluid image">
+    </div>
+  </div>
+
+  <br>
+  <br>
+
+  <!--底部-->
+  <div th:replace="admin/commons/fragments::footer"></div>
+
+
+  <!--引入js-->
+  <div th:replace="admin/commons/fragments::bottom"></div>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:replace="admin/commons/fragments::top(~{::title})">
+  <title>分类新增</title>
+</head>
+<body>
+
+<!--导航-->
+<div th:replace="admin/commons/fragments::header(2)"></div>
+
+<!--二级导航-->
+<div th:replace="admin/commons/fragments::header2(1)"></div>
+
+<!--中间内容-->
+<div  class="m-container-small m-padded-tb-big">
+  <div class="ui container">
+    <form action="#" method="post" th:action="@{/admin/types/{type}(type=${type}!= null ? update : add)}" class="ui form" id="types">
+      <div class=" field">
+        <div class="ui left labeled input">
+          <input type="hidden" th:name="id" th:value="${type} != null ? ${type.getId()} : ''">
+          <label class="ui teal basic label">名称</label>
+          <input type="text" th:name="name" placeholder="分类名称" th:value="${type} != null ? ${type.getName()} : ''">
+        </div>
+      </div>
+
+      <div class="ui error message"></div>
+
+      <div class="ui mini negative message" th:unless="${#strings.isEmpty(message)}" th:text="${message}">用户名和密码错误</div>
+
+      <div class="ui right aligned container">
+        <button type="button" class="ui button" onclick="window.history.go(-1)" >返回</button>
+        <button class="ui teal submit button">提交</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<!--底部-->
+<div th:replace="admin/commons/fragments::footer"></div>
+
+
+<!--引入js-->
+<div th:replace="admin/commons/fragments::bottom"></div>
+</body>
+</html>

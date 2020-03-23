@@ -1,0 +1,248 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="top(title)">
+    <meta charset="UTF-8">
+    <title th:replace="${title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="/lib/editormd/css/editormd.min.css">
+    <link rel="stylesheet" type="text/css" href="/lib/typo/typo.css">
+    <link rel="stylesheet" type="text/css" href="/lib/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="/lib/prism/prism.css">
+    <link rel="stylesheet" type="text/css" href="/lib/tocbot/tocbot.css">
+    <link rel="stylesheet" type="text/css" href="/css/me.css">
+</head>
+<body>
+
+<!--导航-->
+<nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small" th:fragment="header(n)">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu ">
+            <h2 class="ui teal header item">后台管理</h2>
+            <a href="/admin/blogs" class="m-item item m-mobile-hidden" th:classappend="${n==1} ? 'active' : ''"><i class="home icon"></i>博客</a>
+            <a href="/admin/types" class="m-item item m-mobile-hidden" th:classappend="${n==2} ? 'active' : ''"><i class="idea icon"></i>分类</a>
+            <a href="/admin/tags" class="m-item item m-mobile-hidden" th:classappend="${n==3} ? 'active' : ''"><i class="tags icon"></i>标签</a>
+            <div class="right m-item item m-mobile-hidden">
+                <div class="ui icon inverted transparent input">
+                    <input type="text" placeholder="search...">
+                    <i class="search link icon"></i>
+                </div>
+
+                <div class="ui dropdown item">
+                    <div class="text">
+                        <img class="ui avatar image" src="/images/test.jpg">
+                        <span>老泉</span>
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="/admin/logout" class="item">注销</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <a href="#" class="ui menu toggle black icon button m-location-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+
+<!--二级导航-->
+<div class="ui attached pointing menu" th:fragment="header2(nn)">
+    <div class="ui container">
+        <div class="right menu">
+            <a href="#" class="item"  th:classappend="${nn==1} ? 'active teal' : ''">新增</a>
+            <a href="#" class="item"  th:classappend="${nn==2} ? 'active teal' : ''">列表</a>
+        </div>
+    </div>
+</div>
+
+<!-- 底部 -->
+<footer class="ui inverted attached segment m-padded-tb-massive" th:fragment="footer">
+    <div class="ui center aligned container">
+        <div class="ui inverted divided stackable grid">
+            <div class="three wide column" style="text-align: center !important;">
+                <img src="/images/wechat.png" class="ui rounded image" alt="" style="width:100px;display: inline-block !important;">
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-opacity-tiny">联系方式</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">QQ : 1540752331</a>
+                    <a href="#" class="item">WX : zjqshizuishuaide</a>
+                    <a href="#" class="item">WB : 交给时光1992</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-opacity-tiny">座右铭</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">不论成功还是失败</a>
+                    <a href="#" class="item">都是系于自己</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header m-opacity-tiny">欢迎来这</h4>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">这是我的个人博客，会实时分享编程、生活、思考等等相关的任何内容，希望对来到这里的人有所帮助~</p>
+            </div>
+        </div>
+
+        <div class="ui inverted section divider"></div>
+        <p class="m-text-thin m-text-spaced m-opacity-mini">
+            Copyright © http://www.ronggb.cn/ All Rights Reserved. 备案号：
+            <a rel="nofollow" href="http://www.beian.miit.gov.cn" target="_blank"><img src="/images/badge.png">鲁ICP备19012310号</a>
+        </p>
+    </div>
+</footer>
+
+
+<div th:fragment="bottom">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+    <script src="/lib/editormd/editormd.min.js"></script>
+    <script src="/lib/prism/prism.js"></script>
+    <script src="/lib/tocbot/tocbot.min.js"></script>
+    <script src="/lib/qrcode/qrcode.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+    <script src="/lib/waypoints/jquery.waypoints.min.js"></script>
+
+    <script>
+        //头部适应手机端
+        $('.menu.toggle').click(function () {
+            $('.m-item').toggleClass('m-mobile-hidden');
+        });
+
+        //管理页面右上小菜单
+        $('.ui.dropdown').dropdown();
+
+        //markdown编辑器初始化
+        var contentEditor;
+
+        $(function() {
+            contentEditor = editormd("md-content", {
+                width   : "100%",
+                height  : 640,
+                syncScrolling : "single",
+                path    : "/lib/editormd/lib/"
+            });
+        });
+
+
+        //管理页面右上小菜单动态弹出
+        $('.ui.dropdown').dropdown({
+            on : 'hover'
+        });
+
+        //表单验证
+        $('.ui.form').form({
+            fields : {
+                title : {
+                    identifier : 'title',
+                    rules : [{
+                        type : 'empty',
+                        prompt : '标题：请输入博客标题'
+                    }]
+                }
+            }
+        });
+
+        /*登陆新增时非空验证*/
+        $('#login').form({
+            fields : {
+                username : {
+                    identifier: 'username',
+                    rules: [{
+                        type : 'empty',
+                        prompt: '请输入用户名'
+                    }]
+                },
+                password : {
+                    identifier: 'password',
+                    rules: [{
+                        type : 'empty',
+                        prompt: '请输入密码'
+                    }]
+                }
+            }
+        });
+
+        //消息提示关闭初始化
+        $('.message .close')
+            .on('click', function () {
+                $(this)
+                    .closest('.message')
+                    .transition('fade');
+            });
+
+        /*分类新增时非空验证*/
+        $('#types').form({
+            fields : {
+                title : {
+                    identifier: 'name',
+                    rules: [{
+                        type : 'empty',
+                        prompt: '请输入分类名称'
+                    }]
+                }
+            }
+        });
+
+        /*博客发布时非空验证*/
+        $('#blog-form').form({
+            fields : {
+                title : {
+                    identifier: 'title',
+                    rules: [{
+                        type : 'empty',
+                        prompt: '错误：请输入博客标题'
+                    }]
+                },
+                content : {
+                    identifier: 'content',
+                    rules: [{
+                        type : 'empty',
+                        prompt: '错误：请输入博客内容'
+                    }]
+                },
+                typeId : {
+                    identifier: 'typeId',
+                    rules: [{
+                        type : 'empty',
+                        prompt: '错误：请输入博客分类'
+                    }]
+                },
+                tagIds : {
+                    identifier: 'tagIds',
+                    rules: [{
+                        type : 'empty',
+                        prompt: '错误：请输入博客标签'
+                    }]
+                },
+                firstPicture : {
+                    identifier: 'firstPicture',
+                    rules: [{
+                        type : 'empty',
+                        prompt: '错误：请输入博客首图'
+                    }]
+                }
+            }
+        });
+
+        /*博客发布时设置状态为发布*/
+        $('#publish-btn').click(function () {
+            $('[name="published"]').val(true);
+            //$('#randomId').val(Number(createRandomId()));
+            $('#blog-form').submit();
+        });
+
+        /*博客保存设置状态为未发布*/
+        $('#save-btn').click(function () {
+            $('[name="published"]').val(false);
+            //$('#randomId').val(Number(createRandomId()));
+            $('#blog-form').submit();
+        });
+    </script>
+
+</div>
+
+</body>
+</html>
+

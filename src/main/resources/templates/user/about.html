@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:replace="user/commons/fragments::top(~{::title})">
+    <title>关于我</title>
+</head>
+
+<body>
+<!--导航-->
+<div th:replace="user/commons/fragments::header(5)"></div>
+
+<!--    中间内容-->
+<div class="m-container m-padded-tb-big animated fadeIn">
+    <div class="ui container">
+        <div class="ui stackable grid">
+            <!--     最左侧空白内容 美化样式 -->
+            <div class="one"></div>
+
+            <!--     左侧图片       -->
+            <div class="ten wide column">
+                <div class="ui segment">
+                    <img src="/images/test.jpg" alt="" class="ui rounded image">
+                </div>
+            </div>
+
+            <!--     右侧信息       -->
+            <div class="five wide column">
+                <div class="ui top attached segment">
+                    <div class="ui header">关于我</div>
+                </div>
+                <div class="ui attached segment">
+                    <p class="m-text">大家好，如你们所见，我是个大三计算机系学生。虽然我被生产于98年，但是目前为止所有零件都是原装的。
+                        左脑堪比骁龙855，右脑可战麒麟980。可唱可跳可rap，不定时也可以做一个不露脸的颜值主播。
+                        虽然我们不熟，但是天气这么热，相信我们马上就熟了。如果有空可以来逛逛我的博客~~~</p>
+                </div>
+                <div class="ui attached segment">
+                    <div class="ui teal basic label">编程</div>
+                    <div class="ui teal basic label">听音乐</div>
+                    <div class="ui teal basic label">思考</div>
+                    <div class="ui teal basic label">科学</div>
+                </div>
+                <div class="ui attached segment">
+                    <div class="ui orange basic left pointing label m-margin-tb-tiny">Java</div>
+                    <div class="ui orange basic left pointing label m-margin-tb-tiny">javascript</div>
+                    <div class="ui orange basic left pointing label m-margin-tb-tiny">Mysql&SQL server</div>
+                    <div class="ui orange basic left pointing label m-margin-tb-tiny">Linux</div>
+                    <div class="ui orange basic left pointing label m-margin-tb-tiny">...</div>
+                </div>
+                <div class="ui bottom attached center aligned segment">
+                    <a href="https://github.com/zjq-springflow?tab=repositories" class="ui circular icon button" data-content="1540752331"><i class="github icon"></i></a>
+                    <a href="#" class="ui weixinIcon circular icon button" data-content="1540752331"><i class="wechat icon"></i></a>
+                    <a href="#" class="ui qq circular icon button" data-content="1540752331"><i class="qq icon"></i></a>
+                </div>
+                <div class="ui weichat-qr flowing popup transition hidden">
+                    <img src="/images/wechat.png" alt="" class="ui rounded image" style="width: 120px;">
+                </div>
+                <div class="ui qq-qr flowing popup transition hidden">
+                    <img src="/images/qq.jpg" alt="" class="ui rounded image" style="width: 120px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--   end-->
+
+
+
+
+<!--底部-->
+<div th:replace="user/commons/fragments::footer"></div>
+
+
+<!--引入js-->
+<div th:replace="user/commons/fragments::bottom"></div>
+
+</body>
+</html>

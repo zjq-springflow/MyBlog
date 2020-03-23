@@ -1,0 +1,246 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="top(title)">
+    <meta charset="UTF-8">
+    <title th:replace="${title}"></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="/lib/typo/typo.css">
+    <link rel="stylesheet" type="text/css" href="/lib/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="/lib/prism/prism.css">
+    <link rel="stylesheet" type="text/css" href="/lib/tocbot/tocbot.css">
+    <link rel="stylesheet" type="text/css" href="/css/me.css">
+</head>
+<body>
+
+<!--导航-->
+<nav class="ui inverted attached segment m-padded-tb-mini m-shadow-small" th:fragment="header(n)">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu ">
+            <h2 class="ui teal header item">Blog</h2>
+            <a href="/" class="m-item item m-mobile-hidden" th:classappend="${n==1} ? 'active' : ''"><i class="home icon"></i>首页</a>
+            <a href="/types/-1" class="m-item item m-mobile-hidden" th:classappend="${n==2} ? 'active' : ''"><i class="idea icon"></i>分类</a>
+            <a href="/tags/-1" class="m-item item m-mobile-hidden" th:classappend="${n==3} ? 'active' : ''"><i class="tags icon"></i>标签</a>
+            <a href="/archives" class="m-item item m-mobile-hidden" th:classappend="${n==4} ? 'active' : ''"><i class="clone icon"></i>归档</a>
+            <a href="/about" class="m-item item m-mobile-hidden" th:classappend="${n==5} ? 'active' : ''"><i class="info icon"></i>关于我</a>
+
+            <div class="right m-item item m-mobile-hidden">
+                <form name="search" action="#" th:action="@{/search}" method="get" target="_blank">
+                    <div class="ui icon inverted  input m-margin-tb-tiny">
+                        <input type="text" name="query" placeholder="Search...." th:value="${query}">
+                        <i onclick="document.forms['search'].submit()" class="search link icon"></i>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="ui menu toggle black icon button m-location-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+
+<!-- 底部 -->
+<footer class="ui inverted attached segment m-padded-tb-massive" th:fragment="footer">
+    <div class="ui center aligned container">
+        <div class="ui inverted divided stackable grid">
+            <div class="three wide column" style="text-align: center !important;">
+                <img src="/images/wechat.png" class="ui rounded image" alt="" style="width:100px;display: inline-block !important;">
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-opacity-tiny">联系方式</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">QQ : 1540752331</a>
+                    <a href="#" class="item">WX : zjqshizuishuaide</a>
+                    <a href="#" class="item">WB : 交给时光1992</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-opacity-tiny">座右铭</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">不论成功还是失败</a>
+                    <a href="#" class="item">都是系于自己</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header m-opacity-tiny">欢迎来这</h4>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">这是我的个人博客，会实时分享编程、生活、思考等等相关的任何内容，希望对来到这里的人有所帮助~</p>
+            </div>
+        </div>
+
+        <div class="ui inverted section divider"></div>
+            <p class="m-text-thin m-text-spaced m-opacity-mini">
+                Copyright © http://www.ronggb.cn/ All Rights Reserved. 备案号：
+                <a rel="nofollow" href="http://www.beian.miit.gov.cn" target="_blank"><img src="/images/badge.png">鲁ICP备19012310号</a>
+            </p>
+        </div>
+</footer>
+
+
+<!-- 引入js 及 jq操作 -->
+<div th:fragment="bottom">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+    <script src="/lib/prism/prism.js"></script>
+    <script src="/lib/tocbot/tocbot.min.js"></script>
+    <script src="/lib/qrcode/qrcode.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+    <script src="/lib/waypoints/jquery.waypoints.min.js"></script>
+
+    <script>
+        //头部适应手机端
+        $('.menu.toggle').click(function () {
+            $('.m-item').toggleClass('m-mobile-hidden');
+        });
+
+
+        //点击赞赏弹出二维码的方法（弹出层）
+        $('#payButton').click(function () {
+            $('#admire').modal('show');
+        });
+
+
+        //弹出微信二维码
+        $('.weixinIcon').popup({
+            popup : $('.weichat-qr'),
+            on : 'hover',
+            position : 'bottom center'
+        });
+
+        //弹出qq二维码
+        $('.qq').popup({
+            popup : $('.qq-qr'),
+            on : 'hover',
+            position : 'bottom center'
+        });
+
+        //初始化目录抓取
+        tocbot.init({
+            // Where to render the table of contents.
+            tocSelector: '.js-toc',
+            // Where to grab the headings to build the table of contents.
+            contentSelector: '.js-toc-content',
+            // Which headings to grab inside of the contentSelector element.
+            headingSelector: 'h1, h2, h3',
+        });
+
+        //点击向左侧弹出一个目录选项
+        $('.toc.button').popup({
+            popup : $('.toc-container.popup'),
+            on : 'click',
+            position: 'left center'
+        });
+
+        //点击弹出二维码图片
+        $('.wechat').popup({
+            popup : $('.wechat-qr'),
+            position: 'left center'
+        });
+
+        //生成二维码
+        var qrcode = new QRCode("qrcode", {
+            text: "http://jindo.dev.naver.com/collie",
+            width: 110,
+            height: 110,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
+        //底部到顶部  平滑滚动
+        $('#toTop-button').click(function () {
+            $(window).scrollTo(0,500);
+        });
+
+        //监测 弹出右下小菜单
+        var waypoint = new Waypoint({
+            element: document.getElementById('waypoint'),
+            handler: function (direction) {
+                if (direction == 'down') {
+                    $('#toolbar').show(500);
+                } else {
+                    $('#toolbar').hide(500);
+                }
+            }
+        });
+
+        //评论表单验证
+        $('#comment-form').form({
+            fields: {
+                title: {
+                    identifier: 'content',
+                    rules: [{
+                        type: 'empty',
+                        prompt: '请输入评论内容'
+                    }
+                    ]
+                },
+                content: {
+                    identifier: 'nickname',
+                    rules: [{
+                        type: 'empty',
+                        prompt: '请输入你的大名'
+                    }]
+                },
+                type: {
+                    identifier: 'email',
+                    rules: [{
+                        type: 'email',
+                        prompt: '请填写正确的邮箱地址'
+                    }]
+                }
+            }
+        });
+
+        //点击id为commentpost-btn的button提交触发事件
+        $('#commentpost-btn').click(function () {
+            var boo = $('.ui.form').form('validate form');//调用表单验证的方法(显式调用)
+            if(boo){
+                console.log('校验成功');
+                alert("校验成功");
+                postData();
+            }else{
+                console.log('校验失败');
+            }
+        });
+
+        //提交form表单内容(ajax方式)
+        function postData() {
+            alert("发送数据");
+            $("#comment-container").load("/comments",{
+                "parentCommentId" : $("[name='parentComment.id']").val(),
+                "blogId" : $("[name='blog.id']").val(),
+                "nickname": $("[name='nickname']").val(),
+                "email"   : $("[name='email']").val(),
+                "content" : $("[name='content']").val()
+            },function (responseTxt, statusTxt, xhr) {//xhr 状态码(200为正常)
+                //滚动回 '#comment-container'(评论位置) 因为最新评论在最下方,所以注释掉
+                $(window).scrollTo($('#comment-container'),500);
+                clearContent();
+            });
+        }
+
+        //评论提交后清除评论框里的历史内容
+        function clearContent() {
+            $("[name='content']").val('');
+            $("[name='parentComment.id']").val(-1);
+            $("[name='content']").attr("placeholder", "请输入评论信息...");
+        }
+
+        //点击回复,回复评论时调用(拿到回复对像的id和名称，将其放入form表单待提交)
+        function reply(obj) {
+            var commentId = $(obj).data('commentid');
+            var commentNickname = $(obj).data('commentnickname');
+            $("[name='content']").attr("placeholder", "@"+commentNickname).focus();//@的對象,並将光标定位在其后面
+            $("[name='parentComment.id']").val(commentId);
+            alert("commentId:"+commentId);
+            alert("commentNickname:"+commentNickname);
+            $(window).scrollTo($('#comment-form'),500);
+        }
+
+    </script>
+
+</div>
+
+</body>
+</html>
+

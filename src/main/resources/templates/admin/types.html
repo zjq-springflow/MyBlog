@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:replace="admin/commons/fragments::top(~{::title})">
+  <title>分类新增</title>
+</head>
+<body>
+
+  <!--导航-->
+  <div th:replace="admin/commons/fragments::header(2)"></div>
+
+  <!--二级导航-->
+  <div th:replace="admin/commons/fragments::header2(2)"></div>
+
+  <!--中间内容-->
+  <div  class="m-container-small m-padded-tb-big">
+    <div class="ui container">
+      <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+        <i class="close icon"></i>
+        <div class="header">提示：</div>
+        <p th:text="${message}">恭喜，操作成功！</p>
+      </div>
+      <table class="ui compat teal table">
+        <thead>
+          <tr>
+            <th>名称</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="type:${pageInfo.list}">
+            <td th:text="${type.name}">刻意练习清单</td>
+            <td>
+              <a href="#" th:href="@{/admin/types/input/{id}(id=${type.id})}" class="ui mini purple basic button">编辑</a>
+              <a href="#" id="delete" onclick="return confirm('您确定要删除吗？')" th:href="@{/admin/types/delete/{id}(id=${type.id})}" class="ui mini red basic button">删除</a>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="6"  style="padding-bottom: 0px">
+              <div class="ui mini pagination menu " th:if="${pageInfo.pages} > 1">
+                <div class="item"><a th:href="@{/admin/types}">首页</a></div>
+                <div class="item"><a th:href="@{/admin/types(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">上一页</a></div>
+                <div class="item"><a th:href="@{/admin/types(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}" >下一页</a></div>
+                <div class="item"><a th:href="@{/admin/types(pageNum=${pageInfo.pages})}">尾页</a></div>
+              </div>
+              <div class="ui mini segment m-inline-block">
+                <p >当前第<span th:text="${pageInfo.pageNum}"></span>页，总<span th:text="${pageInfo.pages}"></span>页，共<span th:text="${pageInfo.total}"></span>条记录</p>
+              </div>
+              <a href="#" th:href="@{/admin/types/input}"  class="ui mini right floated purple basic button">新增</a>
+            </th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <br>
+  <br>
+
+
+  <!--底部-->
+  <div th:replace="admin/commons/fragments::footer"></div>
+
+
+  <!--引入js-->
+  <div th:replace="admin/commons/fragments::bottom"></div>
+</body>
+</html>

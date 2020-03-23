@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:replace="admin/commons/fragments::top(~{::title})">
+    <title>博客列表</title>
+</head>
+
+<body>
+<!--导航-->
+<div th:replace="admin/commons/fragments::header(1)"></div>
+
+<!--二级导航-->
+<div th:replace="admin/commons/fragments::header2(2)"></div>
+
+<!--    中间内容-->
+<div class="m-container-small m-padded-tb-big">
+    <div class="ui container">
+        <!--头部检索-->
+        <form th:action="@{/admin/blogs/search}" method="post" class="ui segment form">
+            <!--fields代表一个区域,inline缩短区域的效果-->
+            <div class="inline fields" style="margin-bottom: 0px">
+                <div class="field" style="margin-left: 4px">
+                    <a th:href="@{/admin/blogs/input}" class="ui mini blue basic button" >新增</a>
+                </div>
+                <div class="field" style="padding-right: 105px"></div>
+                <div class="field">
+                    <input type="text" name="title" placeholder="标题">
+                </div>
+                <div class="field">
+                    <!--dropdown是下拉框效果-->
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="typeId">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">分类</div>
+                        <!--menu是菜单-->
+                        <div class="menu">
+                            <div th:each="type : ${types}" class="item" data-value="1" th:data-value="${type.id}" th:text="${type.name}">错误日志</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui checkbox">
+                        <input type="checkbox" id="recommend" name="recommend">
+                        <label for="recommend">推荐</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <button class="ui mini purple basic button" id="search-btn" type="submit"><i class="search icon"></i>搜索</button>
+                </div>
+            </div>
+        </form>
+
+        <!--博客列表-->
+        <table class="ui compat teal table">
+            <thead>
+            <tr>
+                <th>标题</th>
+                <th>类型</th>
+                <th>推荐</th>
+                <th>状态</th>
+                <th>更新时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="blog:${pageInfo.list}">
+                <td th:text="${blog.getTitle()}">刻意练习清单</td>
+                <td th:text="${blog.getType().name}">认知升级</td>
+                <td th:text="${blog.getRecommend()==1 ? '是' : '否'}">是</td>
+                <td th:text="${blog.getPublished()==1 ? '发布' : '草稿' }">是</td>
+                <td th:text="${#dates.format(blog.getUpdateTime(),'yyyy-MM-dd')}">2017-10-02 09:45</td>
+                <td>
+                    <a href="#" th:href="@{/admin/blogs/input/{id}(id=${blog.id})}" class="ui mini purple basic button">编辑</a>
+                    <a th:href="@{/admin/blogs/delete/{id}(id=${blog.id})}" onclick="return confirm('您确定要删除吗？')" class="ui mini red basic button">删除</a>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <!--th colspan是合并单元格-->
+                <th colspan="6">
+                    <div class="ui mini menu pagination" th:if="${pageInfo.pages} > 1">
+                        <div class="item"><a th:href="@{/admin/blogs}">首页</a></div>
+                        <div class="item"><a th:href="@{/admin/blogs(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">上一页</a></div>
+                        <div class="item"><a th:href="@{/admin/blogs(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">下一页</a></div>
+                        <div class="item"><a th:href="@{/admin/blogs(pageNum=${pageInfo.pages})}">尾页</a></div>
+                    </div>
+                    <div class="ui mini segment m-inline-block">
+                        <p >当前第<span th:text="${pageInfo.pageNum}"></span>页，总<span th:text="${pageInfo.pages}"></span>页，共<span th:text="${pageInfo.total}"></span>条记录</p>
+                    </div>
+<!--                    <a th:href="@{/admin/blogs/input}" class="ui mini right floated purple basic button">新增</a>-->
+                </th>
+            </tr>
+            </tfoot>
+        </table>
+
+        <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+            <i class="close icon"></i>
+            <div class="header">提示：</div>
+            <p th:text="${message}">恭喜，操作成功！</p>
+        </div>
+    </div>
+</div>
+<!--   end-->
+
+
+<!--底部-->
+<div th:replace="admin/commons/fragments::footer"></div>
+
+<!--引入js-->
+<div th:replace="admin/commons/fragments::bottom"></div>
+
+</body>
+</html>

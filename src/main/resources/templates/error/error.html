@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:replace="user/commons/fragments::top(~{::title})">
+    <head th:replace="">
+        <title>服务器错误啦！</title>
+    </head>
+
+<body>
+<!--导航-->
+<div th:replace="user/commons/fragments::header(0)"></div>
+
+
+
+<br>
+<!--    中间内容-->
+<div class="ui segment m-container-small">
+    <div class="ui fluid">
+        <img src="/images/500.jpg" class="ui fluid rounded image"/>
+    </div>
+    <div class="errorWords">
+        <div class="errorWords_display">
+            <a href="/" class="ui big teal button" style="margin-top: 8px">返回首页</a>
+        </div>
+    </div>
+</div>
+<br>
+
+
+<!--底部-->
+<div th:replace="user/commons/fragments::footer"></div>
+
+
+<!--引入js-->
+<div th:replace="user/commons/fragments::bottom"></div>
+
+</body>
+</html>
+
