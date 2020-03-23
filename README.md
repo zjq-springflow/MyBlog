@@ -16,6 +16,8 @@
 
 
 
+![](https://note.youdao.com/yws/public/resource/5681a0de28b70ad43acf8e1860389927/xmlnote/5E673CD986E744C0926087C2969AB5FE/7490)
+
 ## 快速启动
 
 - jdk1.8+
