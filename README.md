@@ -10,12 +10,13 @@
 
 ## 快速启动
 
-- jdk 8
-- apache-maven-3.0.5
+- jdk1.8+
+- maven 3.0+
+- mysql 5.7+
 
 
 
-项目导入后修改application-dev.xml的数据库用户名密码。
+项目导入后修改`application-dev.xml`的数据库用户名密码。
 
 启动即可，默认端口8088。
 
@@ -29,7 +30,7 @@
 - **Thymeleaf**
 - **Semantic UI**
 
-分页插件pagehelper，转换html插件commonmark，前端插件等等不再赘述。
+分页插件`pagehelper`，转换html插件`commonmark`，前端插件等等不再赘述。
 
 
 
@@ -49,8 +50,6 @@
 
 - 安全只是使用的拦截器
 
-- 数据库很臃肿，xml的sql也很臃肿
-
 - 无密码修改，无注册
 
 - 功能很少
@@ -61,3 +60,4 @@
 
 - 简洁明了
 - 结构清晰
+- 功能具有很大的扩展性
